@@ -11,25 +11,19 @@ const Header = () => {
   useEffect(() => {
     if (menuState.menuOpened === true) {
       //Run open animation
-      gsap.to("nav", { css: { display: "block" } });
-      gsap.to("body", { css: { overflow: "hidden" } });
-
-      tl.to("nav", 0, {
-        css: { display: "block" },
-      })
-        .to("body", 0, { css: { overflow: "hidden" } })
-        .to(".App", 1, {
-          y: "70vh",
-          ease: "expo.inOut",
-        })
-        .to(".hamburger-menu span", 0.6, {
+      tl.to("nav", { duration: 0, css: { display: "block" } })
+        .to("body", { duration: 0, css: { overflow: "hidden" } })
+        .to(".App", { duration: 1, y: "50vh", ease: "expo.inOut" })
+        .to(".hamburger-menu span", {
+          duration: 0.6,
           delay: -1,
           scaleX: 0,
           transformOrigin: "50% 0%",
           ease: "expo.inOut",
         })
-        .to("#Path_1", 0.4, {
-          delay: -0.6,
+        .to("#Path_1", {
+          duration: 0.4,
+          delay: 0.6,
           css: {
             strokeDashoffset: 10,
             strokeDasharray: 5,
