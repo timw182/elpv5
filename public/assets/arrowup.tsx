@@ -9,7 +9,7 @@ const SvgComponent = (props: SVGProps<SVGSVGElement>) => (
         data-name="Line 1"
         y1={14.91}
         transform="translate(184 463.788)"
-        fill="none"
+        fill="#fff"
         stroke="#000"
         strokeLinecap="round"
         strokeLinejoin="round"
@@ -20,8 +20,8 @@ const SvgComponent = (props: SVGProps<SVGSVGElement>) => (
         data-name="Path 1"
         d="M6,9.155,10.949,5"
         transform="translate(173.051 458.302)"
-        fill="none"
-        stroke="#000"
+        fill="#fff"
+        stroke="#fff"
         strokeLinecap="round"
         strokeLinejoin="round"
         strokeWidth={2.5}
@@ -32,7 +32,7 @@ const SvgComponent = (props: SVGProps<SVGSVGElement>) => (
         d="M10.949,5,15.9,9.155"
         transform="translate(173.051 458.302)"
         fill="none"
-        stroke="#000"
+        stroke="#fff"
         strokeLinecap="round"
         strokeLinejoin="round"
         strokeWidth={2.5}
