@@ -4,7 +4,7 @@ import Rightarrow from "@/public/assets/arrowright";
 import Leftarrow from "@/public/assets/arrowleft";
 import Link from "next/link";
 import Image from "next/image";
-import PlaneImg from "../../public/plane2.jpeg";
+import PlaneImg from "../../public/plane.png";
 import CustomsImg from "../../public/customs.png";
 import TruckImg from "../../public/truck.png";
 

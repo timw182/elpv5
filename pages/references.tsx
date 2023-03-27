@@ -5,7 +5,7 @@ const ReferencePage = () => {
     <div className={styles.page}>
       <div className={styles.container}>
         <div className={styles.row}>
-          <h3> THis is the about page</h3>
+          <h3> This is the about page</h3>
         </div>
       </div>
     </div>

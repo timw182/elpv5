@@ -1,43 +1,62 @@
 import Head from "next/head";
-import { useIsomorphicLayoutEffect } from "@/helpers/helper/IsoMorphicEffect";
-import React, { useRef, useEffect } from "react";
-import Header from "./components/header";
-
+import React, { useEffect, useState } from "react";
 import { gsap } from "gsap";
 
-export default function Home() {
-  const titleRef = useRef(null);
+//components
+import Header from "./components/header";
+import Navigation from "./components/navigation";
 
-  useEffect(() => {
-    // inner height of mobile devices
-    let vh = window.innerHeight * 0.01;
-    document.documentElement.style.setProperty("--vh", `${vh}px`);
-  }, []);
-  useEffect(() => {
+//pages
+import HomePage from "./home";
+import About from "./about";
+import References from "./references";
+import Contact from "./contact";
+import { useIsomorphicLayoutEffect } from "@/helpers/helper/IsoMorphicEffect";
+
+const routes = [
+  { path: "/", name: "Home", Component: HomePage },
+  { path: "/about", name: "About", Component: About },
+  { path: "/references", name: "References", Component: References },
+  { path: "/contact", name: "Contact", Component: Contact },
+];
+
+function debounce(fn, ms: number) {
+  let timer;
+  return () => {
+    clearTimeout(timer);
+    timer = setTimeout(() => {
+      timer = null;
+      fn.apply(this, arguments);
+    }, ms);
+  };
+}
+
+export default function Home() {
+  if (typeof window !== "undefined") {
+    const [dimensions, setDimensions] = useState({
+      height: window.innerHeight,
+      width: window.innerWidth,
+    });
+    // prevents flashing
     gsap.to("body", { duration: 0, css: { visibility: "visible" } });
-    //animation
-    const tl = gsap.timeline();
-    tl.to(".overlay-top", 1.6, {
-      height: 0,
-      ease: "expo.inOut",
-      stagger: 0.4,
-    })
-      .to(".overlay-bottom", {
-        duration: 1.6,
-        width: 0,
-        ease: "expo.inOut",
-        delay: -0.8,
-        stagger: { amount: 0.4 },
-      })
-      .to(".introOverlay", { duration: 0, css: { display: "none" } })
-      .to(".imageAni", {
-        scale: 1,
-        duration: 1.8,
-        ease: "expo.inOut",
-        delay: -2,
-        stagger: { amount: 0.4 },
-      });
-  }, []);
+
+    useEffect(() => {
+      // inner height of mobile devices
+      let vh = dimensions.height * 0.01;
+      document.documentElement.style.setProperty("--vh", `${vh}px`);
+
+      const debouncedHandleResize = debounce(function handleResize() {
+        setDimensions({
+          height: window.innerHeight,
+          width: window.innerWidth,
+        });
+      }, 1000);
+      window.addEventListener("resize", debouncedHandleResize);
+      return () => {
+        window.removeEventListener("resize", debouncedHandleResize);
+      };
+    });
+  }
   return (
     <>
       <Head>
@@ -47,10 +66,11 @@ export default function Home() {
         <link rel="icon" href="/favicon.ico" />
       </Head>
       <main>
-      
-  
-          <Header />
-
+        <Header/>
+        <div className="App">
+          <HomePage />
+        </div>
+        <Navigation />
       </main>
     </>
   );
