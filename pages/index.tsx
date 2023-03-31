@@ -15,47 +15,45 @@ const routes = [
   { path: "/", name: "home", Component: HomePage },
   { path: "/about", name: "about", Component: AboutPage },
 ];
-function debounce(fn, ms: number) {
-  let timer;
+function debounce(fn: { (): void; apply?: any }, ms: number) {
+  let timer: string | number | NodeJS.Timeout | null | undefined;
   return () => {
     clearTimeout(timer);
     timer = setTimeout(() => {
       timer = null;
-      fn.apply(this, arguments);
+      fn.apply(this, function () {});
     }, ms);
   };
 }
 
 export default function Home() {
-  if (typeof window !== "undefined") {
-    const [dimensions, setDimensions] = useState({
-      height: window.innerHeight,
-      width: window.innerWidth,
-    });
+  const [dimensions, setDimensions] = useState({
+    height: null,
+    width: null,
+  });
+  useIsomorphicLayoutEffect(() => {
+    // prevents flashing
+    gsap.to("body", { duration: 0, css: { visibility: "visible" } });
+    // inner height of mobile devices
+    let vh = dimensions.height * 0.01;
+    document.documentElement.style.setProperty("--vh", `${vh}px`);
 
-    useIsomorphicLayoutEffect(() => {
-      // prevents flashing
-      gsap.to("body", { duration: 0, css: { visibility: "visible" } });
-      // inner height of mobile devices
-      let vh = dimensions.height * 0.01;
-      document.documentElement.style.setProperty("--vh", `${vh}px`);
+    const debouncedHandleResize = debounce(function handleResize() {
+      setDimensions({
+        height: window.innerHeight,
+        width: window.innerWidth,
+      });
+    }, 1000);
+    window.addEventListener("resize", debouncedHandleResize);
+    return () => {
+      window.removeEventListener("resize", debouncedHandleResize);
+    };
+  });
 
-      const debouncedHandleResize = debounce(function handleResize() {
-        setDimensions({
-          height: window.innerHeight,
-          width: window.innerWidth,
-        });
-      }, 1000);
-      window.addEventListener("resize", debouncedHandleResize);
-      return () => {
-        window.removeEventListener("resize", debouncedHandleResize);
-      };
-    });
-  }
   return (
     <main>
       <div className="App">
-        <HomePage/>
+        <HomePage />
       </div>
     </main>
   );

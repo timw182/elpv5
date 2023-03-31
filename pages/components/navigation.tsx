@@ -18,7 +18,7 @@ const Navigation = () => {
           <div className={styles.navColumn}>
             <div className={styles.navLabel}>Menu</div>
             <ul className={styles.navLinks}>
-              <li onClick={closeMenu} onClick={handleclick}>
+              <li onClick={handleclick}>
                 <Link className={styles.linkItem} href="/about">
                   About.
                 </Link>

@@ -1,7 +1,7 @@
 import Header from "./header";
 import Navigation from "./navigation";
 
-const Layout = (props) => {
+const Layout = (props:any) => {
   return (
     <>
       <Header />

@@ -7,7 +7,7 @@ import { useIsomorphicLayoutEffect } from "@/helpers/IsoMorphicEffect";
 import { openMenu, closeMenu } from "@/animations/menuAnimations";
 import { useRouter, withRouter } from "next/router";
 
-const Header = (props) => {
+const Header = () => {
   // const router = useRouter();
   // const [menuState, setMenuState] = useState({ menuOpened: false });
  
