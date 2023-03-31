@@ -5,8 +5,8 @@ const Layout = (props) => {
   return (
     <>
       <Header />
-      <Navigation />
       <main>{props.children}</main>
+      <Navigation />
     </>
   );
 };

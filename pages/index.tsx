@@ -57,7 +57,6 @@ export default function Home() {
       <div className="App">
         <HomePage/>
       </div>
-      <Navigation/>
     </main>
   );
 }

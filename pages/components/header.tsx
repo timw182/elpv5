@@ -5,25 +5,26 @@ import ArrowUp from "../../public/assets/up-arrow-circle.svg";
 import { gsap } from "gsap/dist/gsap";
 import { useIsomorphicLayoutEffect } from "@/helpers/IsoMorphicEffect";
 import { openMenu, closeMenu } from "@/animations/menuAnimations";
-import { withRouter } from "next/router";
+import { useRouter, withRouter } from "next/router";
 
 const Header = (props) => {
-  const [menuState, setMenuState] = useState({ menuOpened: false });
-  useIsomorphicLayoutEffect(() => {
-    console.log(props.router.query.name);
+  // const router = useRouter();
+  // const [menuState, setMenuState] = useState({ menuOpened: false });
+ 
+  // useIsomorphicLayoutEffect(() => {
+    
+  //   let ctx = gsap.context(() => {
+  //     if (menuState.menuOpened === true) {
+  //       //Run open animation
+  //       openMenu();
+  //     } else {
+  //       //Run close animation
 
-    let ctx = gsap.context(() => {
-      if (menuState.menuOpened === true) {
-        //Run open animation
-        openMenu();
-      } else {
-        //Run close animation
-
-        closeMenu();
-      }
-    });
-    return () => ctx.revert();
-  }, [menuState.menuOpened, props.router.query]);
+  //       closeMenu();
+  //     }
+  //   });
+  //   return () => ctx.revert();
+  // }, [menuState.menuOpened]);
 
   return (
     <div className={styles.header}>
@@ -37,7 +38,7 @@ const Header = (props) => {
           <div className={styles.navToggle}>
             <div
               className={`${styles.hamburgerMenu} hamburger-menu`}
-              onClick={() => setMenuState({ menuOpened: true })}
+              onClick={() => openMenu()}
             >
               <span></span>
               <span></span>
@@ -45,7 +46,7 @@ const Header = (props) => {
             </div>
             <div
               className={`${styles.hamburgerMenuClose} hamburger-menu-close`}
-              onClick={() => setMenuState({ menuOpened: false })}
+              onClick={() => closeMenu()}
             >
               <svg className={styles.svg} xmlns="http://www.w3.org/2000/svg" width="64" height="64" viewBox="0 0 64 64">
                 <g id="Group_1" data-name="Group 1" transform="translate(-152 -439)">

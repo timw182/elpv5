@@ -46,10 +46,12 @@ const HomePage = () => {
   };
   useIsomorphicLayoutEffect(() => {
     let ctx = gsap.context(() => {
-      homeAnimation(completeAnimation);
+    
+        homeAnimation(completeAnimation);
+      
     });
     return () => ctx.revert(); // cleanup
-  }, []);
+  },[]);
   return (
     <>
       {animationComplete === false ? <IntroOverlay /> : ""}

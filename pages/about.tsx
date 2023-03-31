@@ -1,21 +1,29 @@
 import styles from "../styles/components/about.module.scss";
-import { useRouter, withRouter } from "next/router";
+
 
 const AboutPage = () => {
-  const router = useRouter();
   return (
-    <section className={styles.main}>
-      <div className={styles.container}>
-        <div className={styles.row}>
-          <h2>
-            <div className={styles.line}>
-              <span>About Us</span>
+    <>
+      <div className={styles.app}>
+        <div className={styles.main}>
+          <div className={styles.container}>
+            <div className={styles.row}>
+              <h2>About Us</h2>
+              <p>
+                European Logistics Partners (ELP) is an entirely neutral and independent customs and forwarding agent,
+                located at the Cargo Center of the Luxembourg Airport. The company was founded in 2001 by Theo Weirig
+                and has earned since then a solid reputation as being the specialist of handling most sensitive
+                consignments (like valuable cars, musical equipment, animals, perishables, etc.). We always accorded
+                highest priority to offer a highly professional, flexible and reliable service at one of the most
+                important gateways in Europe. Our highly dedicated staff has many years of experience in various fields
+                of the transportation industry, always assuring that your requirements are fulfilled to your entire
+                satisfaction.
+              </p>
             </div>
-          </h2>
-          <div className={styles.btnRow}></div>
+          </div>
         </div>
       </div>
-    </section>
+    </>
   );
 };
-export default withRouter(AboutPage);
+export default AboutPage;

@@ -4,8 +4,8 @@ let tl = gsap.timeline();
 
 export const openMenu = () => {
   tl.to("nav", { duration: 0.5, delay: 0, css: { display: "block" } })
-    .to("body", { duration: 0.5, css: { overflow: "hidden" } })
-    .to(".App", { duration: 0.5, y: "300px", ease: "expo.inOut" })
+    .to("body", { duration: 0.5, delay: 0, css: { overflow: "hidden" } })
+    .to(".App", { duration: 0.5, delay: 0, y: "50vh", ease: "expo.inOut" })
     .to(".hamburger-menu span", {
       duration: 0.6,
       delay: -1,
@@ -96,5 +96,5 @@ export const closeMenu = () => {
     })
     .to(".hamburger-menu-close", { delay: -0.1, css: { display: "none" } })
     .to("body", { css: { overflow: "auto" } })
-    .to("nav", { css: { display: "block" } });
+    .to("nav", { css: { display: "none" } });
 };
