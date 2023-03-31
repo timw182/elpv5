@@ -1,10 +1,12 @@
 import Header from "./header";
+import Navigation from "./navigation";
 
-const Layout = ({ children }) => {
+const Layout = (props) => {
   return (
     <>
       <Header />
-      <main>{children}</main>
+      <Navigation />
+      <main>{props.children}</main>
     </>
   );
 };

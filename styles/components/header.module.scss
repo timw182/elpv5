@@ -50,7 +50,7 @@
   }
 
   .logo {
-    a {
+    .link {
       font-size: 1.2rem;
       letter-spacing: 0.5rem;
       color: $black;
@@ -84,7 +84,7 @@
     .hamburgerMenuClose {
       position: absolute;
       display: none;
-      svg {
+      .svg {
         @include media("<=tablet") {
           width: 56px;
         }

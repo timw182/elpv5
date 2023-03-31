@@ -9,10 +9,10 @@ const Banner = () => {
       <div className={styles.container}>
         <div className={styles.row}>
           <h2>
-            <div className={styles.line}>
+            <div className={`${styles.line} line`}>
               <span> Moving your business forward,</span>
             </div>
-            <div className={styles.line}>
+            <div className={`${styles.line} line`}>
               <span>one shipment at a time.</span>
             </div>
           </h2>

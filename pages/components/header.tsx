@@ -2,115 +2,37 @@ import React, { useState, useEffect, useRef } from "react";
 import styles from "@/styles/components/header.module.scss";
 import Link from "next/link";
 import ArrowUp from "../../public/assets/up-arrow-circle.svg";
-import { gsap } from "gsap";
+import { gsap } from "gsap/dist/gsap";
+import { useIsomorphicLayoutEffect } from "@/helpers/IsoMorphicEffect";
+import { openMenu, closeMenu } from "@/animations/menuAnimations";
+import { withRouter } from "next/router";
 
-let tl = gsap.timeline();
-
-const Header = () => {
+const Header = (props) => {
   const [menuState, setMenuState] = useState({ menuOpened: false });
-  useEffect(() => {
-    if (menuState.menuOpened === true) {
-      //Run open animation
-      tl.to("nav", { duration: 0, css: { display: "block" } })
-        .to("body", { duration: 0, css: { overflow: "hidden" } })
-        .to(".App", { duration: 1, y: "50vh", ease: "expo.inOut" })
-        .to(".hamburger-menu span", {
-          duration: 0.6,
-          delay: -1,
-          scaleX: 0,
-          transformOrigin: "50% 0%",
-          ease: "expo.inOut",
-        })
-        .to("#Path_1", {
-          duration: 0.4,
-          delay: 0.6,
-          css: {
-            strokeDashoffset: 10,
-            strokeDasharray: 5,
-          },
-        })
-        .to("#Path_2", 0.4, {
-          delay: -0.6,
-          css: {
-            strokeDashoffset: 10,
-            strokeDasharray: 20,
-          },
-        })
-        .to("#Line_1", 0.4, {
-          delay: -0.6,
-          css: {
-            strokeDashoffset: 40,
-            strokeDasharray: 18,
-          },
-        })
-        .to("#circle", 0.6, {
-          delay: -0.8,
-          css: {
-            strokeDashoffset: 0,
-          },
-          ease: "expo.inOut",
-        })
-        .to(".hamburger-menu-close", 0.6, {
-          delay: -0.8,
-          css: { display: "block" },
-        });
-    } else {
-      // Run closing animation
-      tl.to(".App", 1, {
-        y: 0,
-        ease: "expo.inOut",
-      })
-        .to("#circle", 0.6, {
-          delay: -0.6,
-          css: {
-            strokeDashoffset: -193,
-            strokeDasharray: 227,
-          },
-        })
-        .to("#Path_1", 0.4, {
-          delay: -0.6,
-          css: {
-            strokeDashoffset: 10,
-            strokeDasharray: 10,
-          },
-        })
-        .to("#Path_2", 0.4, {
-          delay: -0.6,
-          css: {
-            strokeDashoffset: 10,
-            strokeDasharray: 10,
-          },
-        })
-        .to("#Line_1", 0.4, {
-          delay: -0.6,
-          css: {
-            strokeDashoffset: 40,
-            strokeDasharray: 40,
-          },
-        })
-        .to(".hamburger-menu span", 0.6, {
-          delay: -0.6,
-          scaleX: 1,
-          transformOrigin: "50% 0%",
-          ease: "expo.inOut",
-        })
-        .to(".hamburger-menu-close", 0, {
-          delay: -0.1,
-          css: { display: "none" },
-        })
-        .to("body", 0, { css: { overflow: "auto" } })
-        .to("nav", 0, {
-          css: { display: "none" },
-        });
-    }
-  }, [menuState.menuOpened]);
+  useIsomorphicLayoutEffect(() => {
+    console.log(props.router.query.name);
+
+    let ctx = gsap.context(() => {
+      if (menuState.menuOpened === true) {
+        //Run open animation
+        openMenu();
+      } else {
+        //Run close animation
+
+        closeMenu();
+      }
+    });
+    return () => ctx.revert();
+  }, [menuState.menuOpened, props.router.query]);
 
   return (
     <div className={styles.header}>
       <div className={styles.container}>
         <div className={`${styles.row} ${styles.vCenter} ${styles.spaceBetween}`}>
           <div className={styles.logo}>
-            <Link href="/">EUROPEAN LOGISTICS PARTNERS</Link>
+            <Link className={styles.link} href="/">
+              EUROPEAN LOGISTICS PARTNERS
+            </Link>
           </div>
           <div className={styles.navToggle}>
             <div
@@ -125,7 +47,54 @@ const Header = () => {
               className={`${styles.hamburgerMenuClose} hamburger-menu-close`}
               onClick={() => setMenuState({ menuOpened: false })}
             >
-              <ArrowUp />
+              <svg className={styles.svg} xmlns="http://www.w3.org/2000/svg" width="64" height="64" viewBox="0 0 64 64">
+                <g id="Group_1" data-name="Group 1" transform="translate(-152 -439)">
+                  <line
+                    id="Line_1"
+                    data-name="Line 1"
+                    y1="14.91"
+                    transform="translate(184 463.788)"
+                    fill="none"
+                    stroke="#000"
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
+                    strokeWidth="2.5"
+                  />
+                  <path
+                    id="Path_1"
+                    data-name="Path 1"
+                    d="M6,9.155,10.949,5"
+                    transform="translate(173.051 458.302)"
+                    fill="none"
+                    stroke="#000"
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
+                    strokeWidth="2.5"
+                  />
+                  <path
+                    id="Path_2"
+                    data-name="Path 2"
+                    d="M10.949,5,15.9,9.155"
+                    transform="translate(173.051 458.302)"
+                    fill="none"
+                    stroke="#000"
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
+                    strokeWidth="2.5"
+                  />
+                  <g
+                    id="Ellipse_1"
+                    data-name="Ellipse 1"
+                    transform="translate(152 439)"
+                    fill="none"
+                    stroke="rgba(0,0,0,0.2)"
+                    strokeWidth="2.5"
+                  >
+                    <circle cx="32" cy="32" r="32" stroke="none" />
+                    <circle id="circle" cx="32" cy="32" r="30.75" fill="none" />
+                  </g>
+                </g>
+              </svg>
             </div>
           </div>
         </div>
@@ -133,4 +102,4 @@ const Header = () => {
     </div>
   );
 };
-export default Header;
+export default withRouter(Header);

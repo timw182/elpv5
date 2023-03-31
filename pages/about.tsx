@@ -1,14 +1,21 @@
-import styles from "../styles/components/about.module.scss"
+import styles from "../styles/components/about.module.scss";
+import { useRouter, withRouter } from "next/router";
 
 const AboutPage = () => {
+  const router = useRouter();
   return (
-    <div className={styles.page}>
+    <section className={styles.main}>
       <div className={styles.container}>
         <div className={styles.row}>
-          <h3> THis is the about page</h3>
+          <h2>
+            <div className={styles.line}>
+              <span>About Us</span>
+            </div>
+          </h2>
+          <div className={styles.btnRow}></div>
         </div>
       </div>
-    </div>
+    </section>
   );
 };
-export default AboutPage;
+export default withRouter(AboutPage);
